@@ -11,6 +11,7 @@
 <script>
 import Header from "./components/layout/Header.vue";
 import Footer from "./components/layout/Footer.vue";
+
 export default {
   components: {
     Header,
@@ -27,6 +28,8 @@ export default {
   .content {
     flex: 1;
     overflow: auto;
+    margin: 0 auto; // Центрирование контента
+    width: 1200px;
   }
 }
 </style>
