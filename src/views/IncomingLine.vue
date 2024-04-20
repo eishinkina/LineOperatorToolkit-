@@ -28,19 +28,15 @@
       >, спасибо за Ваш звонок. Какую медаль Вы хотели заказать?
     </p>
     <div class="medalsBtn">
-      <button type="button" class="btn btn-secondary">Олимпийский мишка</button>
-      <button type="button" class="btn btn-secondary">Хризма</button>
-      <button type="button" class="btn btn-secondary">Менделеев</button>
-      <button type="button" class="btn btn-secondary">Ангел</button>
-      <button type="button" class="btn btn-secondary">
-        За оборону Ленинграда
+      <button
+        type="button"
+        v-for="medal in medals"
+        :key="medal.id"
+        @click="selectedMedal = medal"
+        class="btn btn-secondary"
+      >
+        {{ medal.name }}
       </button>
-      <button type="button" class="btn btn-secondary">Матушка Россия</button>
-      <button type="button" class="btn btn-secondary">Орден ВОВ</button>
-      <button type="button" class="btn btn-secondary">Казанская</button>
-      <button type="button" class="btn btn-secondary">Чудотворец</button>
-      <button type="button" class="btn btn-secondary">1 руб 1961</button>
-      <button type="button" class="btn btn-secondary">Матрона</button>
     </div>
     <p>
       Продиктуйте пожалуйста КОД резервирования, который указан в буклете.<b>{{
@@ -68,12 +64,7 @@
           подтверждает качество и оригинальность медали. Но и это еще не все: с
           памятной медалью, Вы получаете эксклюзивный подарок – это…
           <span
-            ><b
-              >…икона «Спас в силах» и молитвой Отче наш на обороте. Обращаю
-              Ваше вниманием, что данная медаль прошла обряд освящения иереем
-              Русской православной церкви (Московский патриархат). Что скажете,
-              зарезервируем за Вами премиальную версию?</b
-            >
+            ><b>{{ selectedMedal.presents }}</b>
           </span>
         </p>
       </div>
@@ -149,7 +140,19 @@
       <div class="collection-presentation">
         {{ savedName || "ИО" }}, пока формирую заказ, расскажу Вам, что для тех,
         кто заказывает эту медаль также действует спец.предложение на коллекцию
-        …{{ коллекция }}
+        {{ selectedMedal.collections?.descriptions }}
+        <div class="collection-reserve">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            @click="showCollectionsReserve = !showCollectionsReserve"
+          >
+            Резервная коллекция
+          </button>
+          <p v-if="showCollectionsReserve">
+            {{ selectedMedal.collectionsReserve?.descriptions }}
+          </p>
+        </div>
       </div>
       <div class="opposition">
         <h3 class="oppositionTitle">Отработка контактного сопротивления</h3>
@@ -232,14 +235,53 @@
               <th>Премиум + кросс</th>
             </tr>
           </thead>
-          <tbody>
-            <tr v-for="offer in offers" :key="offer.id">
-              <td v-html="`${this.savedName || 'ИО'}${offer.free}`"></td>
-              <td v-html="`${this.savedName || 'ИО'}${offer.freeCross}`"></td>
-              <td v-html="`${this.savedName || 'ИО'}${offer.premium}`"></td>
-              <td
-                v-html="`${this.savedName || 'ИО'}${offer.premiumCross}`"
-              ></td>
+          <tbody v-if="selectedMedal.name">
+            <tr>
+              <td>
+                {{
+                  `${this.savedName || "ИО"}, вы заказали бесплатную медаль ${
+                    selectedMedal.name
+                  }. В сумму вашего заказа входит 349 руб. за
+                доставку.`
+                }}
+              </td>
+              <td>
+                {{
+                  `${
+                    this.savedName || "ИО"
+                  }, в сумму Вашего заказа входит: бесплатная медаль плюс 349р. за доставку. - стоимость первой медали коллекции со скидкой ${
+                    selectedMedal.collections.discountPrice
+                  } р.  и сбор почты.- а следующие по ${
+                    selectedMedal.collections.price
+                  } р. и плюс 349 р. за доставку  Итого - …р.Оплачиваете наложенным платежом, который составляет примерно 2,8%`
+                }}
+              </td>
+              <td>
+                {{
+                  `${
+                    this.savedName || "ИО"
+                  }, в сумму Вашего заказа входит:- стоимость медали со скидкой ${
+                    selectedMedal.prices.upgradeDiscount
+                  }/ ${
+                    selectedMedal.prices.upgrade
+                  }. и плюс 349 р за доставку Итого -1344р./ 2048р Оплачиваете наложенным платежом, который составляет примерно 2,8%,`
+                }}
+              </td>
+              <td>
+                {{
+                  `${
+                    this.savedName || "ИО"
+                  }, в сумму Вашего заказа входит:- стоимость медали со скидкой ${
+                    selectedMedal.prices.upgradeDiscount
+                  }/ ${
+                    selectedMedal.prices.upgrade
+                  } и плюс 349 р за доставку и сбор почты. - стоимость первой медали коллекции со скидкой${
+                    selectedMedal.collections.discountPrice
+                  }р.  и сбор почты.- а следующие по ${
+                    selectedMedal.collections.price
+                  } р. и плюс …р. Оплачиваете наложенным платежом, который составляет примерно 2,8%а доставку.  Итого - …р.`
+                }}
+              </td>
             </tr>
           </tbody>
         </table>
@@ -295,18 +337,10 @@ export default {
       myName: "Екатерина",
       userName: "",
       savedName: "",
-      offers: [
-        {
-          id: 1,
-          free: ", вы заказали бесплатную медаль _________. В сумму вашего заказа входит  349 руб. за доставку.",
-          freeCross:
-            ", в сумму Вашего заказа входит: бесплатная медаль плюс 349р. за доставку. - стоимость первой медали коллекции со скидкой … р.  и сбор почты.- а следующие по … р. и плюс …р. за доставку  Итого - …р.Оплачиваете наложенным платежом, который составляет примерно 2,8%",
-          premium:
-            ", в сумму Вашего заказа входит:- стоимость медали со скидкой 995 р/ 1699р. и плюс 349 р за доставку Итого -1344р./ 2048р Оплачиваете наложенным платежом, который составляет примерно 2,8%",
-          premiumCross:
-            ", в сумму Вашего заказа входит:- стоимость медали со скидкой 995 р./1699р и плюс … р за доставку и сбор почты. - стоимость первой медали коллекции со скидкой … р.  и сбор почты.- а следующие по … р. и плюс …р. Оплачиваете наложенным платежом, который составляет примерно 2,8%а доставку.  Итого - …р.",
-        },
-      ],
+      medals: [],
+      selectedMedal: {},
+      isReserveCollectionShown: false,
+      showCollectionsReserve: false,
       offersEdit: [
         {
           idEdit: 1,
@@ -322,11 +356,31 @@ export default {
       ],
     };
   },
+
+  computed: {},
+  watch: {
+    selectedMedal: {
+      deep: true,
+      handler() {
+        this.showCollectionsReserve = false;
+      },
+    },
+  },
   methods: {
     clearInput() {
       this.savedName = this.userName.trim() || "ИО";
       this.userName = "";
     },
+
+    async getMedals() {
+      const { data } = await this.$http.get(`/api/medals.json`);
+      this.medals = data;
+    },
+    toggleCollection() {},
+  },
+
+  created() {
+    this.getMedals();
   },
 };
 </script>
