@@ -39,7 +39,7 @@
       <button type="button" class="btn btn-secondary">Орден ВОВ</button>
       <button type="button" class="btn btn-secondary">Казанская</button>
       <button type="button" class="btn btn-secondary">Чудотворец</button>
-      <button type="button" class="btn btn-secondary">100 лет СССР</button>
+      <button type="button" class="btn btn-secondary">1 руб 1961</button>
       <button type="button" class="btn btn-secondary">Матрона</button>
     </div>
     <p>
