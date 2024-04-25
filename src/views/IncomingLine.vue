@@ -59,10 +59,11 @@
           Вас есть возможность заказать улучшенную версию медали с покрытием
           чистым золотом 999 пробы. Это не только красиво, также важно, что
           чистое золото не окисляется, а значит сохраняет свой благородный блеск
-          на столетия! Стоимость Премиум-версии медали всего 1699 рублей. А так
-          же, вместе с медалью, мы отправим Вам сертификат подлинности, который
-          подтверждает качество и оригинальность медали. Но и это еще не все: с
-          памятной медалью, Вы получаете эксклюзивный подарок – это…
+          на столетия! Стоимость Премиум-версии медали / банкноты всего 1699 /
+          1995 рублей. А так же, вместе с медалью, мы отправим Вам сертификат
+          подлинности, который подтверждает качество и оригинальность медали. Но
+          и это еще не все: с памятной медалью, Вы получаете эксклюзивный
+          подарок – это…
           <span
             ><b>{{ selectedMedal.presents }}</b>
           </span>
@@ -71,69 +72,50 @@
       <div class="opposition">
         <h3 class="oppositionTitle">Отработка контактного сопротивления</h3>
         <div class="oppositionBtn">
-          <button type="button" class="btn btn-danger">некогда</button>
-          <button type="button" class="btn btn-danger">Не интересно</button>
-          <button type="button" class="btn btn-danger">Не нужно</button>
-          <button type="button" class="btn btn-danger">Нет денег</button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            v-for="res in resistance"
+            :key="res.id"
+            @click="selectResistanceBlock1(res)"
+          >
+            {{ res.name }}
+          </button>
         </div>
+      </div>
+      <div v-if="randomResponseBlock1">
+        {{ randomResponseBlock1 }}
       </div>
       <div class="root">
         <h3 class="rootTitle">Выявление причин</h3>
         <div class="rootBtn">
-          <button type="button" class="btn btn-info">Подумаю</button>
-          <button type="button" class="btn btn-info">Дорого / нет денег</button>
-          <button type="button" class="btn btn-info">
-            Нужно посоветоваться
-          </button>
-          <button type="button" class="btn btn-info">
-            Не нужно / не интересно
+          <button
+            v-for="res in root"
+            :key="res.id"
+            @click="selectedRootBlock1(res)"
+            type="button"
+            class="btn btn-info"
+          >
+            {{ res.name }}
           </button>
         </div>
       </div>
+      <div v-if="randomRootBlock1">{{ randomRootBlock1 }}</div>
       <div class="objectionsNNA">
         <h3 class="title">NNA Отработки возражений/ 2 попытки</h3>
         <div class="objectionNNAbtn">
-          <button type="button" class="btn btn-primary">Дорого за 1699р</button>
-          <button type="button" class="btn btn-primary">
-            Предложение за 995р.
+          <button
+            v-for="res in workingNna"
+            :key="res.id"
+            @click="selectedNna(res)"
+            type="button"
+            class="btn btn-primary"
+          >
+            {{ res.name }}
           </button>
-          <button type="button" class="btn btn-primary">Дорого за 995р.</button>
-          <button type="button" class="btn btn-primary">Нет денег NNA</button>
-          <button type="button" class="btn btn-primary">
-            Не нужно/ не интересно
-          </button>
-          <button type="button" class="btn btn-primary">
-            Доставка дорогая
-          </button>
-          <button type="button" class="btn btn-primary">
-            Сомнения в качестве
-          </button>
-          <button type="button" class="btn btn-primary">
-            посылку подменят
-          </button>
-          <button type="button" class="btn btn-primary">находится в ДНР</button>
-          <button type="button" class="btn btn-primary">
-            На сайте посмотрю
-          </button>
-          <button type="button" class="btn btn-primary">Не люблю золото</button>
-          <button type="button" class="btn btn-primary">
-            Производство КНР
-          </button>
-          <button type="button" class="btn btn-primary">
-            Не могу забрать посылку
-          </button>
-          <button type="button" class="btn btn-primary">
-            Болен, не ходячий
-          </button>
-          <button type="button" class="btn btn-primary">
-            Бесплатная и премиум
-          </button>
-          <button type="button" class="btn btn-primary">Две бесплатные</button>
-          <button type="button" class="btn btn-primary">3 медали за 995</button>
-          <button type="button" class="btn btn-primary">Должник NNA</button>
-          <button type="button" class="btn btn-primary">Жалоба клиента</button>
         </div>
       </div>
+      <div v-if="randomNna">{{ randomNna }}</div>
     </div>
     <div class="collection">
       <h2 class="title">4. / Кросс-продажа. Презентация коллекции.</h2>
@@ -157,65 +139,49 @@
       <div class="opposition">
         <h3 class="oppositionTitle">Отработка контактного сопротивления</h3>
         <div class="oppositionBtn">
-          <button type="button" class="btn btn-danger">некогда</button>
-          <button type="button" class="btn btn-danger">Не интересно</button>
-          <button type="button" class="btn btn-danger">Не нужно</button>
-          <button type="button" class="btn btn-danger">Нет денег</button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            v-for="res in resistance"
+            :key="res.id"
+            @click="selectResistanceBlock2(res)"
+          >
+            {{ res.name }}
+          </button>
         </div>
+      </div>
+      <div v-if="randomResponseBlock2">
+        {{ randomResponseBlock2 }}
       </div>
       <div class="root">
         <h3 class="rootTitle">Выявление причин</h3>
         <div class="rootBtn">
-          <button type="button" class="btn btn-info">Подумаю</button>
-          <button type="button" class="btn btn-info">Дорого / нет денег</button>
-          <button type="button" class="btn btn-info">
-            Нужно посоветоваться
-          </button>
-          <button type="button" class="btn btn-info">
-            Не нужно / не интересно
+          <button
+            v-for="res in root"
+            :key="res.id"
+            @click="selectedRootBlock2(res)"
+            type="button"
+            class="btn btn-info"
+          >
+            {{ res.name }}
           </button>
         </div>
       </div>
+      <div v-if="randomRootBlock2">{{ randomRootBlock2 }}</div>
       <div class="objectionsCollection">
         <h3 class="title">/ Работа с возражениями х1 попытка кросс /</h3>
         <div class="objectionsCollectionBtn">
-          <button type="button" class="btn btn-primary">Нет денег</button>
-          <button type="button" class="btn btn-primary">Дорого</button>
-          <button type="button" class="btn btn-primary">Не коллекционер</button>
-          <button type="button" class="btn btn-primary">
-            Уже собираю коллекцию
-          </button>
-          <button type="button" class="btn btn-primary">
-            Не интересно/не нужно
-          </button>
-          <button type="button" class="btn btn-primary">
-            Маленькая пенсия
-          </button>
-          <button type="button" class="btn btn-primary">
-            Я старый человек
-          </button>
-          <button type="button" class="btn btn-primary">
-            Не могу забрать посылку
-          </button>
-          <button type="button" class="btn btn-primary">
-            Болен, не ходячий
-          </button>
-          <button type="button" class="btn btn-primary">
-            Нужно посоветоваться
-          </button>
-          <button type="button" class="btn btn-primary">
-            Направьте мне первой другую медаль
-          </button>
-          <button type="button" class="btn btn-primary">
-            кросс коллекцию не хочу
-          </button>
-          <button type="button" class="btn btn-primary">
-            Хочу ОДНУ медаль из коллекции
-          </button>
-          <button type="button" class="btn btn-primary">
-            отправьте следующей петра1
+          <button
+            type="button"
+            class="btn btn-primary"
+            v-for="res in workingCross"
+            :key="res.id"
+            @click="selectedCross(res)"
+          >
+            {{ res.name }}
           </button>
         </div>
+        <div v-if="randomCross">{{ randomCross }}</div>
       </div>
     </div>
     <div class="placingAnOrder">
@@ -339,6 +305,27 @@ export default {
       savedName: "",
       medals: [],
       selectedMedal: {},
+
+      workingNna: [],
+      selectedNnaData: {},
+      randomNna: "",
+
+      workingCross: [],
+      selectedCrossData: {},
+      randomCross: "",
+
+      resistance: [],
+      selectedResistanceBlock1: {},
+      selectedResistanceBlock2: {},
+      randomResponseBlock1: "",
+      randomResponseBlock2: "",
+
+      root: [],
+      selectedRootBlock1Data: {},
+      selectedRootBlock2Data: {},
+      randomRootBlock1: "",
+      randomRootBlock2: "",
+
       isReserveCollectionShown: false,
       showCollectionsReserve: false,
       offersEdit: [
@@ -376,11 +363,73 @@ export default {
       const { data } = await this.$http.get(`/api/medals.json`);
       this.medals = data;
     },
-    toggleCollection() {},
+    async getResistanse() {
+      const { data } = await this.$http.get(`/api/resistance.json`);
+      this.resistance = data;
+    },
+    async getRoot() {
+      const { data } = await this.$http.get(`/api/root.json`);
+      this.root = data;
+    },
+    async getNna() {
+      const { data } = await this.$http.get(`/api/workingNna.json`);
+      console.log(data);
+      this.workingNna = data;
+    },
+    async getCollection() {
+      const { data } = await this.$http.get(`/api/workingCollection.json`);
+      console.log(data);
+      this.workingCross = data;
+    },
+
+    selectedRootBlock1(res) {
+      this.selectedRootBlock1Data = res;
+      this.randomRootBlock1 = this.randomRoot(res.responses);
+    },
+    selectedRootBlock2(res) {
+      this.selectedRootBlock2Data = res;
+      this.randomRootBlock2 = this.randomRoot(res.responses);
+    },
+
+    randomRoot(responses) {
+      return responses[Math.floor(Math.random() * responses.length)];
+    },
+
+    selectResistanceBlock1(res) {
+      this.selectedResistanceBlock1 = res;
+      this.randomResponseBlock1 = this.randomResponse(res.responses);
+    },
+
+    selectResistanceBlock2(res) {
+      this.selectedResistanceBlock2 = res;
+      this.randomResponseBlock2 = this.randomResponse(res.responses);
+    },
+
+    randomResponse(responses) {
+      return responses[Math.floor(Math.random() * responses.length)];
+    },
+    selectedNna(res) {
+      this.selectedNnaData = res;
+      this.randomNna = this.getRandomNna(res.responses);
+    },
+    getRandomNna(responses) {
+      return responses[Math.floor(Math.random() * responses.length)];
+    },
+    selectedCross(res) {
+      this.selectedCrossData = res;
+      this.randomCross = this.getRandomCross(res.responses);
+    },
+    getRandomCross(responses) {
+      return responses[Math.floor(Math.random() * responses.length)];
+    },
   },
 
   created() {
     this.getMedals();
+    this.getResistanse();
+    this.getRoot();
+    this.getNna();
+    this.getCollection();
   },
 };
 </script>
@@ -394,6 +443,7 @@ export default {
         justify-content: center;
         gap: 10px;
         flex-wrap: wrap;
+        padding-bottom: 30px;
       }
     }
     .opposition {
@@ -401,8 +451,10 @@ export default {
       justify-content: space-between;
       padding-top: 20px;
       padding-bottom: 20px;
+      align-items: flex-start;
       .oppositionBtn {
         display: flex;
+        white-space: nowrap;
         gap: 20px;
       }
     }
@@ -425,7 +477,12 @@ export default {
         flex-wrap: wrap;
         justify-content: center;
         gap: 10px;
+        padding-bottom: 30px;
       }
+    }
+    &-reserve {
+      padding-top: 30px;
+      padding-bottom: 30px;
     }
     .opposition {
       display: flex;
@@ -433,9 +490,11 @@ export default {
       align-items: center;
       padding-top: 20px;
       padding-bottom: 20px;
+      align-items: flex-start;
       .oppositionBtn {
         display: flex;
         gap: 20px;
+        white-space: nowrap;
       }
     }
     .root {
