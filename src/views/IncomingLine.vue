@@ -5,38 +5,23 @@
       Здравствуйте, Императорский монетный двор, меня зовут {{ myName }}, как
       могу к Вам обращаться?
     </p>
-    <div class="input-group mb-3">
-      <input
-        v-model="userName"
-        type="text"
-        class="form-control"
-        placeholder="Имя пользователя"
-        aria-label="Имя пользователя получателя"
-        aria-describedby="button-addon2"
-      />
-      <button
-        @click="clearInput"
-        class="btn btn-outline-secondary"
-        type="button"
-        id="button-addon2"
-      >
-        Кнопка
-      </button>
-    </div>
+    <MyInput
+      :user-name="userName"
+      @update:userName="handleUserNameUpdate"
+      placeholder="Введите имя пользователя"
+    />
     <p>
       <b>{{ savedName || "ИО" }}</b
       >, спасибо за Ваш звонок. Какую медаль Вы хотели заказать?
     </p>
     <div class="medalsBtn">
-      <button
-        type="button"
+      <MyButton
         v-for="medal in medals"
         :key="medal.id"
+        :button-class="'btn-secondary'"
         @click="selectedMedal = medal"
-        class="btn btn-secondary"
-      >
-        {{ medal.name }}
-      </button>
+        :button-text="medal.name"
+      />
     </div>
     <p>
       Продиктуйте пожалуйста КОД резервирования, который указан в буклете.<b>{{
@@ -59,24 +44,25 @@
           Вас есть возможность заказать улучшенную версию медали с покрытием
           чистым золотом 999 пробы. Это не только красиво, также важно, что
           чистое золото не окисляется, а значит сохраняет свой благородный блеск
-          на столетия! Стоимость Премиум-версии медали всего {{selectedMedal.prices.upgrade }} рублей. А так же, вместе с медалью, мы отправим Вам сертификат подлинности, который подтверждает качество и оригинальность медали.
+          на столетия! Стоимость Премиум-версии медали всего
+          {{ selectedMedal.prices.upgrade }} рублей. А так же, вместе с медалью,
+          мы отправим Вам сертификат подлинности, который подтверждает качество
+          и оригинальность медали.
           <span
-            ><b>{{ selectedMedal.presents }}</b>
-          </span>
+            ><b>{{ selectedMedal.presents }}</b></span
+          >
         </p>
       </div>
       <div class="opposition">
         <h3 class="oppositionTitle">Отработка контактного сопротивления</h3>
         <div class="oppositionBtn">
-          <button
-            type="button"
-            class="btn btn-danger"
+          <MyButton
             v-for="res in resistance"
             :key="res.id"
+            :buttonText="res.name"
+            :buttonClass="'btn-danger'"
             @click="selectResistanceBlock1(res)"
-          >
-            {{ res.name }}
-          </button>
+          />
         </div>
       </div>
       <div v-if="randomResponseBlock1">
@@ -85,15 +71,13 @@
       <div class="root">
         <h3 class="rootTitle">Выявление причин</h3>
         <div class="rootBtn">
-          <button
+          <MyButton
             v-for="res in root"
             :key="res.id"
+            :buttonClass="'btn-info'"
+            :buttonText="res.name"
             @click="selectedRootBlock1(res)"
-            type="button"
-            class="btn btn-info"
-          >
-            {{ res.name }}
-          </button>
+          />
         </div>
       </div>
       <div v-if="randomRootBlock1">
@@ -102,15 +86,13 @@
       <div class="objectionsNNA">
         <h3 class="title">Работа с возражениями х2 попытки</h3>
         <div class="objectionNNAbtn">
-          <button
+          <MyButton
             v-for="res in workingNna"
             :key="res.id"
+            :buttonText="res.name"
+            :buttonClass="'btn-primary'"
             @click="selectedNna(res)"
-            type="button"
-            class="btn btn-primary"
-          >
-            {{ res.name }}
-          </button>
+          />
         </div>
       </div>
       <div v-if="randomNna">
@@ -140,15 +122,13 @@
       <div class="opposition">
         <h3 class="oppositionTitle">Отработка контактного сопротивления</h3>
         <div class="oppositionBtn">
-          <button
-            type="button"
-            class="btn btn-danger"
+          <MyButton
             v-for="res in resistance"
             :key="res.id"
+            :buttonText="res.name"
+            :buttonClass="'btn-danger'"
             @click="selectResistanceBlock2(res)"
-          >
-            {{ res.name }}
-          </button>
+          />
         </div>
       </div>
       <div v-if="randomResponseBlock2">
@@ -158,15 +138,13 @@
       <div class="root">
         <h3 class="rootTitle">Выявление причин</h3>
         <div class="rootBtn">
-          <button
+          <MyButton
             v-for="res in root"
             :key="res.id"
+            :buttonClass="'btn-info'"
+            :buttonText="res.name"
             @click="selectedRootBlock2(res)"
-            type="button"
-            class="btn btn-info"
-          >
-            {{ res.name }}
-          </button>
+          />
         </div>
       </div>
       <div v-if="randomRootBlock2">
@@ -175,15 +153,13 @@
       <div class="objectionsCollection">
         <h3 class="title">Работа с возражениями х1 попытка</h3>
         <div class="objectionsCollectionBtn">
-          <button
-            type="button"
-            class="btn btn-primary"
+          <MyButton
             v-for="res in workingCross"
             :key="res.id"
+            :buttonText="res.name"
+            :buttonClass="'btn-primary'"
             @click="selectedCross(res)"
-          >
-            {{ res.name }}
-          </button>
+          />
         </div>
         <div v-if="randomCross">
           <b>{{ savedName || "ИО" }}</b> {{ randomCross }}
@@ -281,16 +257,10 @@
         </thead>
         <tbody>
           <tr v-for="offerEdit in offersEdit" :key="offerEdit.idEdit">
-            <td v-html="`${this.savedName || 'ИО'}${offerEdit.freeEdit}`"></td>
-            <td
-              v-html="`${this.savedName || 'ИО'}${offerEdit.freeCrossEdit}`"
-            ></td>
-            <td
-              v-html="`${this.savedName || 'ИО'}${offerEdit.premiumEdit}`"
-            ></td>
-            <td
-              v-html="`${this.savedName || 'ИО'}${offerEdit.premiumCrossEdit}`"
-            ></td>
+            <td>{{ `${this.savedName || "ИО"}${offerEdit.freeEdit}` }}</td>
+            <td>{{ `${this.savedName || "ИО"}${offerEdit.freeCrossEdit}` }}</td>
+            <td>{{ `${this.savedName || "ИО"}${offerEdit.premiumEdit}` }}</td>
+            <td>{{ `${this.savedName || "ИО"}${offerEdit.premiumCrossEdit}` }}</td>
           </tr>
         </tbody>
       </table>
@@ -303,7 +273,13 @@
 </template>
 
 <script>
+import MyButton from "@/UI/MyButton.vue";
+import MyInput from "@/UI/MyInput";
 export default {
+  components: {
+    MyButton,
+    MyInput,
+  },
   name: "IncomingLine",
 
   data() {
@@ -370,9 +346,9 @@ export default {
         .join(" ");
     },
 
-    clearInput() {
-      this.savedName = this.capitalizeFirstLetter(this.userName.trim() || "ИО");
-      this.userName = "";
+    handleUserNameUpdate(newUserName) {
+      this.userName = newUserName;
+      this.savedName = this.capitalizeFirstLetter(newUserName.trim() || "ИО");
     },
 
     async getMedals() {
@@ -450,7 +426,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .contentIncommingLine {
   .nna {
     .objectionsNNA {
