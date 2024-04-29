@@ -251,13 +251,13 @@
 <script>
 import MyButton from "@/UI/MyButton.vue";
 import MyInput from "@/UI/MyInput";
-import EndOfCall from '@/components/EndOfCall.vue';
+import EndOfCall from "@/components/EndOfCall.vue";
 
 export default {
   components: {
     MyButton,
     MyInput,
-    EndOfCall
+    EndOfCall,
   },
   name: "IncomingLine",
 
@@ -291,7 +291,7 @@ export default {
 
       isReserveCollectionShown: false,
       showCollectionsReserve: false,
-    }
+    };
   },
 
   computed: {},
