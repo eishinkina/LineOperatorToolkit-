@@ -51,16 +51,15 @@
       район, населенный пункт, улица, номер дома, квартира, эл. почта).
     </p>
     <div class="nna">
-      <h2 class="title">2. /UPG 1699р. Презентация/</h2>
-      <div class="presentationNna">
+      <h2 class="title">Презентация NNA</h2>
+      <div class="presentationNna" v-if="selectedMedal && selectedMedal.prices">
         <p>
           <b>{{ savedName || "ИО" }}</b
           >, пока данные загружаются, расскажу, что в рамках нашего разговора у
           Вас есть возможность заказать улучшенную версию медали с покрытием
           чистым золотом 999 пробы. Это не только красиво, также важно, что
           чистое золото не окисляется, а значит сохраняет свой благородный блеск
-          на столетия! Стоимость Премиум-версии медали / банкноты всего 1699 /
-          1995 рублей. А так же, вместе с медалью, мы отправим Вам сертификат
+          на столетия! Стоимость Премиум-версии медали всего {{selectedMedal.prices.upgrade }} рублей. А так же, вместе с медалью, мы отправим Вам сертификат
           подлинности, который подтверждает качество и оригинальность медали. Но
           и это еще не все: с памятной медалью, Вы получаете эксклюзивный
           подарок – это…
@@ -84,7 +83,7 @@
         </div>
       </div>
       <div v-if="randomResponseBlock1">
-        {{ randomResponseBlock1 }}
+        <b>{{ savedName || "ИО" }}</b> {{ randomResponseBlock1 }}
       </div>
       <div class="root">
         <h3 class="rootTitle">Выявление причин</h3>
@@ -100,9 +99,11 @@
           </button>
         </div>
       </div>
-      <div v-if="randomRootBlock1">{{ randomRootBlock1 }}</div>
+      <div v-if="randomRootBlock1">
+        <b>{{ savedName || "ИО" }}</b> {{ randomRootBlock1 }}
+      </div>
       <div class="objectionsNNA">
-        <h3 class="title">NNA Отработки возражений/ 2 попытки</h3>
+        <h3 class="title">Работа с возражениями х2 попытки</h3>
         <div class="objectionNNAbtn">
           <button
             v-for="res in workingNna"
@@ -115,13 +116,16 @@
           </button>
         </div>
       </div>
-      <div v-if="randomNna">{{ randomNna }}</div>
+      <div v-if="randomNna">
+        <b>{{ savedName || "ИО" }}</b> {{ randomNna }}
+      </div>
     </div>
     <div class="collection">
-      <h2 class="title">4. / Кросс-продажа. Презентация коллекции.</h2>
+      <h2 class="title">Презентация коллекции.</h2>
       <div class="collection-presentation">
-        {{ savedName || "ИО" }}, пока формирую заказ, расскажу Вам, что для тех,
-        кто заказывает эту медаль также действует спец.предложение на коллекцию
+        <b>{{ savedName || "ИО" }}</b
+        >, пока формирую заказ, расскажу Вам, что для тех, кто заказывает эту
+        медаль также действует спец.предложение на коллекцию
         {{ selectedMedal.collections?.descriptions }}
         <div class="collection-reserve">
           <button
@@ -151,6 +155,7 @@
         </div>
       </div>
       <div v-if="randomResponseBlock2">
+        <b>{{ savedName || "ИО" }}</b>
         {{ randomResponseBlock2 }}
       </div>
       <div class="root">
@@ -167,9 +172,11 @@
           </button>
         </div>
       </div>
-      <div v-if="randomRootBlock2">{{ randomRootBlock2 }}</div>
+      <div v-if="randomRootBlock2">
+        <b>{{ savedName || "ИО" }}</b> {{ randomRootBlock2 }}
+      </div>
       <div class="objectionsCollection">
-        <h3 class="title">/ Работа с возражениями х1 попытка кросс /</h3>
+        <h3 class="title">Работа с возражениями х1 попытка</h3>
         <div class="objectionsCollectionBtn">
           <button
             type="button"
@@ -181,15 +188,17 @@
             {{ res.name }}
           </button>
         </div>
-        <div v-if="randomCross">{{ randomCross }}</div>
+        <div v-if="randomCross">
+          <b>{{ savedName || "ИО" }}</b> {{ randomCross }}
+        </div>
       </div>
     </div>
     <div class="placingAnOrder">
-      <h2 class="title">6. / Оформление заказа /</h2>
+      <h2 class="title">Оформление заказа</h2>
       <p>
-        {{ savedName || "ИО" }}, обращаю ваше внимание , что в рамках акции
-        премиум версия приобретается взамен стандартной (бесплатной). Поздравляю
-        Вас с таким приобретением.
+        <b>{{ savedName || "ИО" }}</b> , обращаю ваше внимание , что в рамках
+        акции премиум версия приобретается взамен стандартной (бесплатной).
+        Поздравляю Вас с таким приобретением.
       </p>
       <div class="table">
         <table>
@@ -254,15 +263,16 @@
       </div>
       <div class="compliment">
         <p>
-          {{ savedName || "ИО" }}, в качестве комплимента дарим бесплатную
-          электронную книгу о нумизматике и коллекционировании. Скачать книгу вы
-          сможете по ссылке, которую вам направим по смс. Вам нужно будет просто
-          указать адрес электронной почты и наслаждаться чтением.
+          <b>{{ savedName || "ИО" }}</b
+          >, в качестве комплимента дарим бесплатную электронную книгу о
+          нумизматике и коллекционировании. Скачать книгу вы сможете по ссылке,
+          которую вам направим по смс. Вам нужно будет просто указать адрес
+          электронной почты и наслаждаться чтением.
         </p>
       </div>
     </div>
     <div class="edingCall">
-      <h2 class="title">7. / Завершение разговора NNA /</h2>
+      <h2 class="title">Завершение разговора</h2>
       <table>
         <thead>
           <tr>
@@ -298,6 +308,7 @@
 <script>
 export default {
   name: "IncomingLine",
+
   data() {
     return {
       myName: "Екатерина",
@@ -345,6 +356,7 @@ export default {
   },
 
   computed: {},
+
   watch: {
     selectedMedal: {
       deep: true,
@@ -354,8 +366,15 @@ export default {
     },
   },
   methods: {
+    capitalizeFirstLetter(string) {
+      return string
+        .split(" ")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
+    },
+
     clearInput() {
-      this.savedName = this.userName.trim() || "ИО";
+      this.savedName = this.capitalizeFirstLetter(this.userName.trim() || "ИО");
       this.userName = "";
     },
 
@@ -515,6 +534,7 @@ export default {
     flex-wrap: wrap;
     gap: 10px;
     justify-content: center;
+    padding-bottom: 30px;
   }
   .title {
     text-align: center;
