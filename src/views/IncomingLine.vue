@@ -252,6 +252,7 @@
 import MyButton from "@/UI/MyButton.vue";
 import MyInput from "@/UI/MyInput";
 import EndOfCall from "@/components/EndOfCall.vue";
+import apiService from "@/services/apiService";
 
 export default {
   components: {
@@ -318,26 +319,44 @@ export default {
     },
 
     async getMedals() {
-      const { data } = await this.$http.get(`/api/medals.json`);
-      this.medals = data;
+      try {
+        const { data } = await apiService.getMedals();
+        this.medals = data;
+      } catch (e) {
+        console.error("Ошибка при загрузке медалей:", e);
+      }
     },
-    async getResistanse() {
-      const { data } = await this.$http.get(`/api/resistance.json`);
-      this.resistance = data;
+    async getResistance() {
+      try {
+        const { data } = await apiService.getResistance();
+        this.resistance = data;
+      } catch (e) {
+        console.error("Ошибка при загрузке сопротивлений:", e);
+      }
     },
     async getRoot() {
-      const { data } = await this.$http.get(`/api/root.json`);
-      this.root = data;
+      try {
+        const { data } = await apiService.getRoot();
+        this.root = data;
+      } catch (error) {
+        console.error("Ошибка при загрузке корневых данных:", error);
+      }
     },
     async getNna() {
-      const { data } = await this.$http.get(`/api/workingNna.json`);
-      console.log(data);
-      this.workingNna = data;
+      try {
+        const { data } = await apiService.getWorkingNna();
+        this.workingNna = data;
+      } catch (error) {
+        console.error("Ошибка при загрузке данных NNA:", error);
+      }
     },
     async getCollection() {
-      const { data } = await this.$http.get(`/api/workingCollection.json`);
-      console.log(data);
-      this.workingCross = data;
+      try {
+        const { data } = await apiService.getWorkingCollection();
+        this.workingCross = data;
+      } catch (error) {
+        console.error("Ошибка при загрузке коллекции:", error);
+      }
     },
 
     selectedRootBlock1(res) {
@@ -384,7 +403,7 @@ export default {
 
   created() {
     this.getMedals();
-    this.getResistanse();
+    this.getResistance();
     this.getRoot();
     this.getNna();
     this.getCollection();
