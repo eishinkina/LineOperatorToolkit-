@@ -359,45 +359,33 @@ export default {
       }
     },
 
+    getRandomElement(items) {
+      return items[Math.floor(Math.random() * items.length)];
+    },
     selectedRootBlock1(res) {
       this.selectedRootBlock1Data = res;
-      this.randomRootBlock1 = this.randomRoot(res.responses);
+      this.randomRootBlock1 = this.getRandomElement(res.responses);
     },
     selectedRootBlock2(res) {
       this.selectedRootBlock2Data = res;
-      this.randomRootBlock2 = this.randomRoot(res.responses);
+      this.randomRootBlock2 = this.getRandomElement(res.responses);
     },
-
-    randomRoot(responses) {
-      return responses[Math.floor(Math.random() * responses.length)];
-    },
-
     selectResistanceBlock1(res) {
       this.selectedResistanceBlock1 = res;
-      this.randomResponseBlock1 = this.randomResponse(res.responses);
+      this.randomResponseBlock1 = this.getRandomElement(res.responses);
     },
 
     selectResistanceBlock2(res) {
       this.selectedResistanceBlock2 = res;
-      this.randomResponseBlock2 = this.randomResponse(res.responses);
-    },
-
-    randomResponse(responses) {
-      return responses[Math.floor(Math.random() * responses.length)];
+      this.randomResponseBlock2 = this.getRandomElement(res.responses);
     },
     selectedNna(res) {
       this.selectedNnaData = res;
-      this.randomNna = this.getRandomNna(res.responses);
-    },
-    getRandomNna(responses) {
-      return responses[Math.floor(Math.random() * responses.length)];
+      this.randomNna = this.getRandomElement(res.responses);
     },
     selectedCross(res) {
       this.selectedCrossData = res;
-      this.randomCross = this.getRandomCross(res.responses);
-    },
-    getRandomCross(responses) {
-      return responses[Math.floor(Math.random() * responses.length)];
+      this.randomCross = this.getRandomElement(res.responses);
     },
   },
 
