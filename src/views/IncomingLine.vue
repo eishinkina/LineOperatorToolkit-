@@ -14,7 +14,7 @@
       <b>{{ savedName || "ИО" }}</b
       >, спасибо за Ваш звонок. Какую медаль Вы хотели заказать?
     </p>
-    <div class="medalsBtn">
+    <!-- <div class="medalsBtn">
       <MyButton
         v-for="medal in medals"
         :key="medal.id"
@@ -22,7 +22,8 @@
         @click="selectedMedal = medal"
         :button-text="medal.name"
       />
-    </div>
+    </div> -->
+    <MedalSelector :medals="medals" @selectMedals="selectMedals" />
     <p>
       Продиктуйте пожалуйста КОД резервирования, который указан в буклете.<b>{{
         savedName || "ИО"
@@ -253,12 +254,14 @@ import MyButton from "@/UI/MyButton.vue";
 import MyInput from "@/UI/MyInput";
 import EndOfCall from "@/components/EndOfCall.vue";
 import apiService from "@/services/apiService";
+import MedalSelector from "@/components/MedalSelector.vue";
 
 export default {
   components: {
     MyButton,
     MyInput,
     EndOfCall,
+    MedalSelector,
   },
   name: "IncomingLine",
 
@@ -359,13 +362,19 @@ export default {
       }
     },
 
+    selectMedals(medal) {
+      this.selectedMedal = medal;
+    },
+
     getRandomElement(items) {
       return items[Math.floor(Math.random() * items.length)];
     },
+
     selectedRootBlock1(res) {
       this.selectedRootBlock1Data = res;
       this.randomRootBlock1 = this.getRandomElement(res.responses);
     },
+
     selectedRootBlock2(res) {
       this.selectedRootBlock2Data = res;
       this.randomRootBlock2 = this.getRandomElement(res.responses);
