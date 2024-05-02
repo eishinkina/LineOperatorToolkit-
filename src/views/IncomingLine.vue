@@ -14,15 +14,6 @@
       <b>{{ savedName || "ИО" }}</b
       >, спасибо за Ваш звонок. Какую медаль Вы хотели заказать?
     </p>
-    <!-- <div class="medalsBtn">
-      <MyButton
-        v-for="medal in medals"
-        :key="medal.id"
-        :button-class="'btn-secondary'"
-        @click="selectedMedal = medal"
-        :button-text="medal.name"
-      />
-    </div> -->
     <MedalSelector :medals="medals" @selectMedals="selectMedals" />
     <p>
       Продиктуйте пожалуйста КОД резервирования, который указан в буклете.<b>{{
@@ -308,19 +299,8 @@ export default {
       },
     },
   },
+
   methods: {
-    capitalizeFirstLetter(string) {
-      return string
-        .split(" ")
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(" ");
-    },
-
-    handleUserNameUpdate(newUserName) {
-      this.userName = newUserName;
-      this.savedName = this.capitalizeFirstLetter(newUserName.trim() || "ИО");
-    },
-
     async getMedals() {
       try {
         const { data } = await apiService.getMedals();
@@ -360,6 +340,18 @@ export default {
       } catch (error) {
         console.error("Ошибка при загрузке коллекции:", error);
       }
+    },
+
+    capitalizeFirstLetter(string) {
+      return string
+        .split(" ")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
+    },
+
+    handleUserNameUpdate(newUserName) {
+      this.userName = newUserName;
+      this.savedName = this.capitalizeFirstLetter(newUserName.trim() || "ИО");
     },
 
     selectMedals(medal) {
@@ -484,13 +476,6 @@ export default {
     }
   }
 
-  .medalsBtn {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-    padding-bottom: 30px;
-  }
   .title {
     text-align: center;
     margin: 0;
@@ -528,14 +513,6 @@ export default {
     p {
       padding: 20px;
     }
-  }
-  .edit {
-    border: 1px solid black;
-    border-top: none;
-    p {
-      padding: 20px;
-    }
-    margin-bottom: 50px;
   }
 }
 </style>

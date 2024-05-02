@@ -49,3 +49,14 @@ export default {
   }),
 };
 </script>
+
+<style lang="scss" scoped>
+.edit {
+  border: 1px solid black;
+  border-top: none;
+  p {
+    padding: 20px;
+  }
+  margin-bottom: 50px;
+}
+</style>
