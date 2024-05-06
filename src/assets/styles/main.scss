@@ -1,7 +1,30 @@
 @import "normalize.css";
+@import "./IncommingLine.scss";
 
 * {
   font-family: "Arial", sans-serif;
   padding: 0;
   margin: 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  th,
+  td {
+    vertical-align: top;
+    text-align: left;
+    border: 1px solid black;
+    padding: 8px;
+  }
+}
+
+thead {
+  background-color: #f2f2f2;
+}
+.compliment {
+  border: 1px solid black;
+  p {
+    padding: 20px;
+  }
 }

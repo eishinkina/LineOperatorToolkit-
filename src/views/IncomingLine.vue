@@ -33,13 +33,14 @@
         <p>
           <b>{{ savedName || "ИО" }}</b
           >, пока данные загружаются, расскажу, что в рамках нашего разговора у
-          Вас есть возможность заказать улучшенную версию медали с покрытием
-          чистым золотом 999 пробы. Это не только красиво, также важно, что
-          чистое золото не окисляется, а значит сохраняет свой благородный блеск
-          на столетия! Стоимость Премиум-версии медали всего
+          Вас есть возможность заказать улучшенную версию
+          {{ isMedal ? `медали` : `банкноты` }} с покрытием чистым золотом 999
+          пробы. Это не только красиво, также важно, что чистое золото не
+          окисляется, а значит сохраняет свой благородный блеск на столетия!
+          Стоимость Премиум-версии {{ isMedal ? `медали` : `банкноты` }} всего
           {{ selectedMedal.prices.upgrade }} рублей. А так же, вместе с медалью,
           мы отправим Вам сертификат подлинности, который подтверждает качество
-          и оригинальность медали.
+          и оригинальность {{ isMedal ? `медали` : `банкноты` }}.
           <span
             ><b>{{ selectedMedal.presents }}</b></span
           >
@@ -96,7 +97,8 @@
       <div class="collection-presentation">
         <b>{{ savedName || "ИО" }}</b
         >, пока формирую заказ, расскажу Вам, что для тех, кто заказывает эту
-        медаль также действует спец.предложение на коллекцию
+        {{ isMedal ? `медаль` : `банкноту` }} также действует спец.предложение
+        на коллекцию
         {{ selectedMedal.collections?.descriptions }}
         <div class="collection-reserve">
           <button
@@ -179,7 +181,9 @@
             <tr>
               <td>
                 {{
-                  `${this.savedName || "ИО"}, вы заказали бесплатную медаль ${
+                  `${this.savedName || "ИО"}, вы заказали бесплатную ${
+                    isMedal ? `медаль` : `банкноту`
+                  } ${
                     selectedMedal.name
                   }. В сумму вашего заказа входит 349 руб. за
                 доставку.`
@@ -189,31 +193,33 @@
                 {{
                   `${
                     this.savedName || "ИО"
-                  }, в сумму Вашего заказа входит: бесплатная медаль плюс 349р. за доставку. - стоимость первой медали коллекции со скидкой ${
+                  }, в сумму Вашего заказа входит: бесплатная ${
+                    isMedal ? `медаль` : `банкнота`
+                  } плюс 349р. за доставку. - стоимость первой медали коллекции со скидкой ${
                     selectedMedal.collections.discountPrice
                   } р.  и сбор почты.- а следующие по ${
                     selectedMedal.collections.price
-                  } р. и плюс 349 р. за доставку  Итого - …р.Оплачиваете наложенным платежом, который составляет примерно 2,8%`
+                  } р. и плюс 349 р. за доставку. Оплачиваете наложенным платежом, который составляет примерно 2,8%`
                 }}
               </td>
               <td>
                 {{
                   `${
                     this.savedName || "ИО"
-                  }, в сумму Вашего заказа входит:- стоимость медали со скидкой ${
-                    selectedMedal.prices.upgradeDiscount
-                  }/ ${
+                  }, в сумму Вашего заказа входит:- стоимость ${
+                    isMedal ? `медали` : `банкноты`
+                  } со скидкой ${selectedMedal.prices.upgradeDiscount}/ ${
                     selectedMedal.prices.upgrade
-                  }. и плюс 349 р за доставку Итого -1344р./ 2048р Оплачиваете наложенным платежом, который составляет примерно 2,8%,`
+                  }. и плюс 349 р за доставку. Оплачиваете наложенным платежом, который составляет примерно 2,8%,`
                 }}
               </td>
               <td>
                 {{
                   `${
                     this.savedName || "ИО"
-                  }, в сумму Вашего заказа входит:- стоимость медали со скидкой ${
-                    selectedMedal.prices.upgradeDiscount
-                  }/ ${
+                  }, в сумму Вашего заказа входит:- стоимость ${
+                    isMedal ? `медали` : `банкноты`
+                  } со скидкой ${selectedMedal.prices.upgradeDiscount}/ ${
                     selectedMedal.prices.upgrade
                   } и плюс 349 р за доставку и сбор почты. - стоимость первой медали коллекции со скидкой${
                     selectedMedal.collections.discountPrice
@@ -236,7 +242,7 @@
         </p>
       </div>
     </div>
-    <EndOfCall :name="savedName" />
+    <EndOfCall :name="savedName" :is-medal="isMedal" />
   </div>
 </template>
 
@@ -263,6 +269,7 @@ export default {
       savedName: "",
       medals: [],
       selectedMedal: {},
+      isMedal: true,
 
       workingNna: [],
       selectedNnaData: {},
@@ -294,8 +301,14 @@ export default {
   watch: {
     selectedMedal: {
       deep: true,
-      handler() {
+      handler(value) {
         this.showCollectionsReserve = false;
+
+        if (value.name === "1р 1961г") {
+          this.isMedal = false;
+        } else {
+          this.isMedal = true;
+        }
       },
     },
   },
@@ -400,119 +413,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.contentIncommingLine {
-  .nna {
-    .objectionsNNA {
-      .objectionNNAbtn {
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-        flex-wrap: wrap;
-        padding-bottom: 30px;
-      }
-    }
-    .opposition {
-      display: flex;
-      justify-content: space-between;
-      padding-top: 20px;
-      padding-bottom: 20px;
-      align-items: flex-start;
-      .oppositionBtn {
-        display: flex;
-        white-space: nowrap;
-        gap: 20px;
-      }
-    }
-    .root {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-bottom: 20px;
-      padding-top: 20px;
-      .rootBtn {
-        display: flex;
-        gap: 20px;
-      }
-    }
-  }
-  .collection {
-    .objectionsCollection {
-      .objectionsCollectionBtn {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 10px;
-        padding-bottom: 30px;
-      }
-    }
-    &-reserve {
-      padding-top: 30px;
-      padding-bottom: 30px;
-    }
-    .opposition {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: 20px;
-      padding-bottom: 20px;
-      align-items: flex-start;
-      .oppositionBtn {
-        display: flex;
-        gap: 20px;
-        white-space: nowrap;
-      }
-    }
-    .root {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-bottom: 20px;
-      padding-top: 20px;
-      .rootBtn {
-        display: flex;
-        gap: 20px;
-      }
-    }
-  }
-
-  .title {
-    text-align: center;
-    margin: 0;
-    padding-bottom: 30px;
-    padding-top: 30px;
-  }
-  .greetings {
-    text-align: center;
-    padding-bottom: 20px;
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-  table,
-  th,
-  td {
-    border: 1px solid black;
-  }
-
-  th,
-  td {
-    padding: 8px;
-    text-align: left;
-  }
-
-  thead {
-    background-color: #f2f2f2;
-  }
-  .compliment {
-    border: 1px solid black;
-    border-top: none;
-    p {
-      padding: 20px;
-    }
-  }
-}
-</style>
+<style lang="scss"></style>
