@@ -167,71 +167,11 @@
         акции премиум версия приобретается взамен стандартной (бесплатной).
         Поздравляю Вас с таким приобретением.
       </p>
-      <div class="table">
-        <table>
-          <thead>
-            <tr>
-              <th>Бесплатная</th>
-              <th>Бесплатная + кросс</th>
-              <th>Премиум</th>
-              <th>Премиум + кросс</th>
-            </tr>
-          </thead>
-          <tbody v-if="selectedMedal.name">
-            <tr>
-              <td>
-                {{
-                  `${this.savedName || "ИО"}, вы заказали бесплатную ${
-                    isMedal ? `медаль` : `банкноту`
-                  } ${
-                    selectedMedal.name
-                  }. В сумму вашего заказа входит 349 руб. за
-                доставку.`
-                }}
-              </td>
-              <td>
-                {{
-                  `${
-                    this.savedName || "ИО"
-                  }, в сумму Вашего заказа входит: бесплатная ${
-                    isMedal ? `медаль` : `банкнота`
-                  } плюс 349р. за доставку. - стоимость первой медали коллекции со скидкой ${
-                    selectedMedal.collections.discountPrice
-                  } р.  и сбор почты.- а следующие по ${
-                    selectedMedal.collections.price
-                  } р. и плюс 349 р. за доставку. Оплачиваете наложенным платежом, который составляет примерно 2,8%`
-                }}
-              </td>
-              <td>
-                {{
-                  `${
-                    this.savedName || "ИО"
-                  }, в сумму Вашего заказа входит:- стоимость ${
-                    isMedal ? `медали` : `банкноты`
-                  } со скидкой ${selectedMedal.prices.upgradeDiscount}/ ${
-                    selectedMedal.prices.upgrade
-                  }. и плюс 349 р за доставку. Оплачиваете наложенным платежом, который составляет примерно 2,8%,`
-                }}
-              </td>
-              <td>
-                {{
-                  `${
-                    this.savedName || "ИО"
-                  }, в сумму Вашего заказа входит:- стоимость ${
-                    isMedal ? `медали` : `банкноты`
-                  } со скидкой ${selectedMedal.prices.upgradeDiscount}/ ${
-                    selectedMedal.prices.upgrade
-                  } и плюс 349 р за доставку и сбор почты. - стоимость первой медали коллекции со скидкой${
-                    selectedMedal.collections.discountPrice
-                  }р.  и сбор почты.- а следующие по ${
-                    selectedMedal.collections.price
-                  } р. и плюс …р. Оплачиваете наложенным платежом, который составляет примерно 2,8%а доставку.  Итого - …р.`
-                }}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <OrderTable
+        :selectedMedal="selectedMedal"
+        :isMedal="isMedal"
+        :savedName="savedName"
+      />
       <div class="compliment">
         <p>
           <b>{{ savedName || "ИО" }}</b
@@ -252,6 +192,7 @@ import MyInput from "@/UI/MyInput";
 import EndOfCall from "@/components/EndOfCall.vue";
 import apiService from "@/services/apiService";
 import MedalSelector from "@/components/MedalSelector.vue";
+import OrderTable from "@/components/OrderTable.vue";
 
 export default {
   components: {
@@ -259,6 +200,7 @@ export default {
     MyInput,
     EndOfCall,
     MedalSelector,
+    OrderTable,
   },
   name: "IncomingLine",
 
