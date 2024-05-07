@@ -29,38 +29,17 @@
     </p>
     <div class="nna">
       <h2 class="title">Презентация NNA</h2>
-      <div class="presentationNna" v-if="selectedMedal && selectedMedal.prices">
-        <p>
-          <b>{{ savedName || "ИО" }}</b
-          >, пока данные загружаются, расскажу, что в рамках нашего разговора у
-          Вас есть возможность заказать улучшенную версию
-          {{ isMedal ? `медали` : `банкноты` }} с покрытием чистым золотом 999
-          пробы. Это не только красиво, также важно, что чистое золото не
-          окисляется, а значит сохраняет свой благородный блеск на столетия!
-          Стоимость Премиум-версии {{ isMedal ? `медали` : `банкноты` }} всего
-          {{ selectedMedal.prices.upgrade }} рублей. А так же, вместе с медалью,
-          мы отправим Вам сертификат подлинности, который подтверждает качество
-          и оригинальность {{ isMedal ? `медали` : `банкноты` }}.
-          <span
-            ><b>{{ selectedMedal.presents }}</b></span
-          >
-        </p>
-      </div>
-      <div class="opposition">
-        <h3 class="oppositionTitle">Отработка контактного сопротивления</h3>
-        <div class="oppositionBtn">
-          <MyButton
-            v-for="res in resistance"
-            :key="res.id"
-            :buttonText="res.name"
-            :buttonClass="'btn-danger'"
-            @click="selectResistanceBlock1(res)"
-          />
-        </div>
-      </div>
-      <div v-if="randomResponseBlock1">
-        <b>{{ savedName || "ИО" }}</b> {{ randomResponseBlock1 }}
-      </div>
+      <PresentationNNA
+        :selectedMedal="selectedMedal"
+        :isMedal="isMedal"
+        :savedName="savedName"
+      />
+      <ResistanceHandling
+        :resistance="resistance"
+        :savedName="savedName"
+        :handleClick="selectResistanceBlock1"
+        :randomResponse="randomResponseBlock1"
+      />
       <div class="root">
         <h3 class="rootTitle">Выявление причин</h3>
         <div class="rootBtn">
@@ -113,22 +92,12 @@
           </p>
         </div>
       </div>
-      <div class="opposition">
-        <h3 class="oppositionTitle">Отработка контактного сопротивления</h3>
-        <div class="oppositionBtn">
-          <MyButton
-            v-for="res in resistance"
-            :key="res.id"
-            :buttonText="res.name"
-            :buttonClass="'btn-danger'"
-            @click="selectResistanceBlock2(res)"
-          />
-        </div>
-      </div>
-      <div v-if="randomResponseBlock2">
-        <b>{{ savedName || "ИО" }}</b>
-        {{ randomResponseBlock2 }}
-      </div>
+      <ResistanceHandling
+        :resistance="resistance"
+        :savedName="savedName"
+        :handleClick="selectResistanceBlock2"
+        :randomResponse="randomResponseBlock2"
+      />
       <div class="root">
         <h3 class="rootTitle">Выявление причин</h3>
         <div class="rootBtn">
@@ -193,6 +162,8 @@ import EndOfCall from "@/components/EndOfCall.vue";
 import apiService from "@/services/apiService";
 import MedalSelector from "@/components/MedalSelector.vue";
 import OrderTable from "@/components/OrderTable.vue";
+import PresentationNNA from "@/components/PresentationNNA.vue";
+import ResistanceHandling from "@/components/ResistanceHandling.vue";
 
 export default {
   components: {
@@ -201,6 +172,8 @@ export default {
     EndOfCall,
     MedalSelector,
     OrderTable,
+    PresentationNNA,
+    ResistanceHandling,
   },
   name: "IncomingLine",
 
