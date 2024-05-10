@@ -33,4 +33,17 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.opposition {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  align-items: center;
+  .oppositionBtn {
+    display: flex;
+    white-space: nowrap;
+    gap: 20px;
+  }
+}
+</style>

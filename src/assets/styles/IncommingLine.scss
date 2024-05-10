@@ -9,18 +9,7 @@
         padding-bottom: 30px;
       }
     }
-    .opposition {
-      display: flex;
-      justify-content: space-between;
-      padding-top: 20px;
-      padding-bottom: 20px;
-      align-items: flex-start;
-      .oppositionBtn {
-        display: flex;
-        white-space: nowrap;
-        gap: 20px;
-      }
-    }
+
     .root {
       display: flex;
       justify-content: space-between;
@@ -46,19 +35,6 @@
     &-reserve {
       padding-top: 30px;
       padding-bottom: 30px;
-    }
-    .opposition {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: 20px;
-      padding-bottom: 20px;
-      align-items: flex-start;
-      .oppositionBtn {
-        display: flex;
-        gap: 20px;
-        white-space: nowrap;
-      }
     }
     .root {
       display: flex;
