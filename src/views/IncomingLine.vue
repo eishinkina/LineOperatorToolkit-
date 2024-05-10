@@ -129,28 +129,12 @@
         </div>
       </div>
     </div>
-    <div class="placingAnOrder">
-      <h2 class="title">Оформление заказа</h2>
-      <p>
-        <b>{{ savedName || "ИО" }}</b> , обращаю ваше внимание , что в рамках
-        акции премиум версия приобретается взамен стандартной (бесплатной).
-        Поздравляю Вас с таким приобретением.
-      </p>
-      <OrderTable
-        :selectedMedal="selectedMedal"
-        :isMedal="isMedal"
-        :savedName="savedName"
-      />
-      <div class="compliment">
-        <p>
-          <b>{{ savedName || "ИО" }}</b
-          >, в качестве комплимента дарим бесплатную электронную книгу о
-          нумизматике и коллекционировании. Скачать книгу вы сможете по ссылке,
-          которую вам направим по смс. Вам нужно будет просто указать адрес
-          электронной почты и наслаждаться чтением.
-        </p>
-      </div>
-    </div>
+    <OrderPlacement
+      :savedName="savedName"
+      :selectedMedal="selectedMedal"
+      :isMedal="isMedal"
+    />
+    <Compliment :savedName="savedName" />
     <EndOfCall :name="savedName" :is-medal="isMedal" />
   </div>
 </template>
@@ -161,9 +145,10 @@ import MyInput from "@/UI/MyInput";
 import EndOfCall from "@/components/EndOfCall.vue";
 import apiService from "@/services/apiService";
 import MedalSelector from "@/components/MedalSelector.vue";
-import OrderTable from "@/components/OrderTable.vue";
 import PresentationNNA from "@/components/PresentationNNA.vue";
 import ResistanceHandling from "@/components/ResistanceHandling.vue";
+import Compliment from "@/components/Compliment.vue";
+import OrderPlacement from "@/components/OrderPlacement";
 
 export default {
   components: {
@@ -171,9 +156,10 @@ export default {
     MyInput,
     EndOfCall,
     MedalSelector,
-    OrderTable,
     PresentationNNA,
     ResistanceHandling,
+    Compliment,
+    OrderPlacement,
   },
   name: "IncomingLine",
 
