@@ -1,32 +1,13 @@
 <template>
   <div class="contentIncommingLine">
-    <h1 class="title">Установление контакта. Инфоповод.</h1>
-    <p class="greetings">
-      Здравствуйте, Императорский монетный двор, меня зовут {{ myName }}, как
-      могу к Вам обращаться?
-    </p>
-    <MyInput
-      :user-name="userName"
+    <ContactIntroduction
+      :myName="myName"
+      :userName="userName"
+      :savedName="savedName"
+      :medals="medals"
       @update:userName="handleUserNameUpdate"
-      placeholder="Введите имя пользователя"
+      @selectMedals="selectMedals"
     />
-    <p>
-      <b>{{ savedName || "ИО" }}</b
-      >, спасибо за Ваш звонок. Какую медаль Вы хотели заказать?
-    </p>
-    <MedalSelector :medals="medals" @selectMedals="selectMedals" />
-    <p>
-      Продиктуйте пожалуйста КОД резервирования, который указан в буклете.<b>{{
-        savedName || "ИО"
-      }}</b
-      >, подскажите пожалуйста рекламу видели в газете, по ТВ или в буклете?
-    </p>
-    <p>
-      Прекрасный выбор, для оформления заказа необходимы Ваши ФИО полностью и
-      номер телефона продиктуйте, пожалуйста. Медаль по какому адресу
-      направляем, продиктуйте пожалуйста. (фиксируем адрес : индекс, область,
-      район, населенный пункт, улица, номер дома, квартира, эл. почта).
-    </p>
     <div class="nna">
       <h2 class="title">Презентация NNA</h2>
       <PresentationNNA
@@ -141,25 +122,23 @@
 
 <script>
 import MyButton from "@/UI/MyButton.vue";
-import MyInput from "@/UI/MyInput";
 import EndOfCall from "@/components/EndOfCall.vue";
 import apiService from "@/services/apiService";
-import MedalSelector from "@/components/MedalSelector.vue";
 import PresentationNNA from "@/components/PresentationNNA.vue";
 import ResistanceHandling from "@/components/ResistanceHandling.vue";
 import Compliment from "@/components/Compliment.vue";
 import OrderPlacement from "@/components/OrderPlacement";
+import ContactIntroduction from "@/components/ContactIntroduction.vue";
 
 export default {
   components: {
     MyButton,
-    MyInput,
     EndOfCall,
-    MedalSelector,
     PresentationNNA,
     ResistanceHandling,
     Compliment,
     OrderPlacement,
+    ContactIntroduction,
   },
   name: "IncomingLine",
 
