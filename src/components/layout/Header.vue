@@ -5,9 +5,9 @@
     </div>
     <nav class="navigation">
       <ul class="navlink">
-        <li><router-link to="/">Входящая линия</router-link></li>
-        <li><router-link to="/outgoingDrtv">Исходящая ДРТВ</router-link></li>
-        <li><router-link to="/outgoing">Исходящая</router-link></li>
+        <li><router-link to="/">Входящая Li</router-link></li>
+        <li><router-link to="/outgoingDrtv">Входящая ДРТВ</router-link></li>
+        <li><router-link to="/outgoing">Характеристики</router-link></li>
       </ul>
     </nav>
   </header>

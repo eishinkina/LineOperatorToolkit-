@@ -9,7 +9,6 @@
       @selectMedals="selectMedals"
     />
     <div class="nna">
-      <h2 class="title">Презентация NNA</h2>
       <PresentationNNA
         :selectedMedal="selectedMedal"
         :isMedal="isMedal"
